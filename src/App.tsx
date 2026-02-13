@@ -7,6 +7,7 @@ import BirthdayQuestion from "./components/BirthdayQuestion";
 import ValentineAsk from "./components/ValentineAsk";
 import Celebration from "./components/Celebration";
 import characterImg from "./assets/pictures/8bit me.png";
+import { useTalkingSound } from "./hooks/useTalkingSound";
 
 /**
  * Flow steps:
@@ -80,11 +81,15 @@ function CharacterBubble({
 
 function App() {
   const [step, setStep] = useState<Step>(0);
+  const { playSegment, init: initAudio } = useTalkingSound();
 
   const goNext = () => setStep((prev) => Math.min(prev + 1, 6) as Step);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 flex items-center justify-center p-4 overflow-hidden relative">
+    <div
+      onClick={initAudio}
+      className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 flex items-center justify-center p-4 overflow-hidden relative"
+    >
       <FloatingHearts />
 
       <div className="relative z-10 w-full max-w-2xl px-2">
@@ -113,6 +118,7 @@ function App() {
                   showCursor={true}
                   cursorCharacter="▌"
                   cursorClassName="text-pink-500"
+                  onCharTyped={playSegment}
                   className="text-sm sm:text-base text-black leading-relaxed min-h-[50px]"
                   style={{ fontFamily: "'Press Start 2P', cursive" }}
                 />
@@ -124,7 +130,7 @@ function App() {
                 transition={{ delay: 12 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95, y: 2 }}
-                onClick={goNext}
+                onClick={() => { initAudio(); goNext(); }}
                 className="mt-6 bg-purple-300 hover:bg-purple-400 border-3 border-black rounded-md px-8 py-4 text-sm text-black cursor-pointer transition-colors"
                 style={{
                   fontFamily: "'Press Start 2P', cursive",
@@ -163,6 +169,7 @@ function App() {
                   showCursor={true}
                   cursorCharacter="▌"
                   cursorClassName="text-blue-500"
+                  onCharTyped={playSegment}
                   className="text-sm sm:text-base text-black leading-relaxed min-h-[50px]"
                   style={{ fontFamily: "'Press Start 2P', cursive" }}
                 />
@@ -174,7 +181,7 @@ function App() {
                 transition={{ delay: 5 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95, y: 2 }}
-                onClick={goNext}
+                onClick={() => { initAudio(); goNext(); }}
                 className="mt-6 bg-yellow-300 hover:bg-yellow-400 border-3 border-black rounded-md px-8 py-4 text-sm text-black cursor-pointer transition-colors"
                 style={{
                   fontFamily: "'Press Start 2P', cursive",
@@ -204,7 +211,7 @@ function App() {
                 <TextType
                   text={[
                     "alright, you won't get this one..",
-                    "will you be my valentines?",
+                    "this one is really hard.. click the button",
                   ]}
                   typingSpeed={60}
                   deletingSpeed={30}
@@ -213,6 +220,7 @@ function App() {
                   showCursor={true}
                   cursorCharacter="▌"
                   cursorClassName="text-green-600"
+                  onCharTyped={playSegment}
                   className="text-sm sm:text-base text-black leading-relaxed min-h-[50px]"
                   style={{ fontFamily: "'Press Start 2P', cursive" }}
                 />
@@ -224,7 +232,7 @@ function App() {
                 transition={{ delay: 6 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95, y: 2 }}
-                onClick={goNext}
+                onClick={() => { initAudio(); goNext(); }}
                 className="mt-6 bg-pink-400 hover:bg-pink-500 border-3 border-black rounded-md px-8 py-4 text-sm text-black cursor-pointer transition-colors"
                 style={{
                   fontFamily: "'Press Start 2P', cursive",

@@ -20,6 +20,7 @@ interface TextTypeProps {
   textColors?: string[];
   variableSpeed?: { min: number; max: number };
   onSentenceComplete?: (sentence: string, index: number) => void;
+  onCharTyped?: () => void;
   startOnVisible?: boolean;
   reverseMode?: boolean;
 }
@@ -41,6 +42,7 @@ const TextType = ({
   textColors = [],
   variableSpeed,
   onSentenceComplete,
+  onCharTyped,
   startOnVisible = false,
   reverseMode = false,
   ...props
@@ -131,6 +133,7 @@ const TextType = ({
             () => {
               setDisplayedText(prev => prev + processedText[currentCharIndex]);
               setCurrentCharIndex(prev => prev + 1);
+              onCharTyped?.();
             },
             variableSpeed ? getRandomSpeed() : typingSpeed
           );

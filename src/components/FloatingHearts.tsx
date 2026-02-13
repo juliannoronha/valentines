@@ -1,10 +1,8 @@
 import { useMemo } from "react";
-
-const HEART_EMOJIS = ["💖", "💕", "💗", "💓", "🩷", "✨", "⭐"];
+import heartImg from "../assets/pictures/heart.png";
 
 interface Heart {
     id: number;
-    emoji: string;
     left: number;
     delay: number;
     duration: number;
@@ -16,7 +14,6 @@ export default function FloatingHearts() {
         () =>
             Array.from({ length: 20 }, (_, i) => ({
                 id: i,
-                emoji: HEART_EMOJIS[Math.floor(Math.random() * HEART_EMOJIS.length)],
                 left: Math.random() * 100,
                 delay: Math.random() * 8,
                 duration: 6 + Math.random() * 8,
@@ -28,19 +25,21 @@ export default function FloatingHearts() {
     return (
         <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
             {hearts.map((heart) => (
-                <span
+                <img
                     key={heart.id}
+                    src={heartImg}
+                    alt=""
                     className="absolute animate-float-up"
                     style={{
                         left: `${heart.left}%`,
                         animationDelay: `${heart.delay}s`,
                         animationDuration: `${heart.duration}s`,
-                        fontSize: `${heart.size}px`,
+                        width: `${heart.size}px`,
+                        height: `${heart.size}px`,
+                        imageRendering: "pixelated",
                         bottom: "-40px",
                     }}
-                >
-                    {heart.emoji}
-                </span>
+                />
             ))}
         </div>
     );

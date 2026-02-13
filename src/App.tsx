@@ -33,7 +33,7 @@ function CharacterBubble({
 }) {
   return (
     <div className="flex flex-col items-center gap-4 w-full max-w-lg mx-auto">
-      <div className="flex items-start gap-4 w-full">
+      <div className="flex items-center gap-4 w-full">
         {/* 8-bit Character */}
         <motion.img
           src={characterImg}
@@ -41,28 +41,30 @@ function CharacterBubble({
           initial={{ scale: 0, rotate: -10 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ type: "spring", stiffness: 200, damping: 15 }}
-          className="w-20 h-20 sm:w-28 sm:h-28 flex-shrink-0 object-contain"
+          className="w-36 h-36 sm:w-44 sm:h-44 flex-shrink-0 object-contain"
           style={{ imageRendering: "pixelated" }}
         />
 
         {/* Speech Bubble */}
         <div className="relative flex-1">
-          {/* Outer tail (black border) */}
+          {/* Outer tail (black outline) */}
           <div
-            className="absolute left-[-10px] top-6 w-0 h-0"
+            className="absolute left-[-10px] top-1/2 w-0 h-0"
             style={{
-              borderTop: "8px solid transparent",
-              borderBottom: "8px solid transparent",
+              marginTop: "-10px",
+              borderTop: "10px solid transparent",
+              borderBottom: "10px solid transparent",
               borderRight: "12px solid #000",
             }}
           />
           {/* Inner tail (matches bubble bg) */}
           <div
-            className="absolute left-[-7px] top-[26px] w-0 h-0"
+            className="absolute left-[-6px] top-1/2 w-0 h-0"
             style={{
+              marginTop: "-6px",
               borderTop: "6px solid transparent",
               borderBottom: "6px solid transparent",
-              borderRight: `10px solid ${tailColor}`,
+              borderRight: `8px solid ${tailColor}`,
             }}
           />
 

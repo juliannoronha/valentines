@@ -20,7 +20,7 @@ body {
 /* Floating Hearts Animation */
 @keyframes float-up {
   0% {
-    transform: translateY(0) rotate(0deg);
+    transform: translateY(0);
     opacity: 0;
   }
 
@@ -33,7 +33,7 @@ body {
   }
 
   100% {
-    transform: translateY(-100vh) rotate(360deg);
+    transform: translateY(-100vh);
     opacity: 0;
   }
 }

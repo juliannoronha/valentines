@@ -46,7 +46,7 @@ export default function ColorQuestion({ onCorrect }: ColorQuestionProps) {
                 className="text-xs sm:text-sm text-center mb-6 leading-relaxed text-black"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
             >
-                whats my favorite color? 🎨
+                whats my favorite color?
             </h2>
 
             {/* Color Grid */}
@@ -84,7 +84,7 @@ export default function ColorQuestion({ onCorrect }: ColorQuestionProps) {
                         }`}
                     style={{ fontFamily: "'Press Start 2P', cursive" }}
                 >
-                    {isWrong ? "nope, try again! ❌" : "you do know me! 💜"}
+                    {isWrong ? "wow, you don't know my favorite color? " : "alright, alright.."}
                 </motion.p>
             )}
         </motion.div>

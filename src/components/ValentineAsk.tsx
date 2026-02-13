@@ -21,10 +21,10 @@ export default function ValentineAsk({ onYes }: ValentineAskProps) {
     }, []);
 
     const dodgeMessages = [
-        "No",
-        "Are you sure? 🥺",
-        "Really?? 😢",
-        "Think again! 💔",
+        "hell no!",
+        "are you sure?",
+        "seriously?",
+        "cmon bruh",
         "Please?? 🥹",
         "I'll cry... 😭",
         "PLEASE 😭😭",
@@ -70,7 +70,7 @@ export default function ValentineAsk({ onYes }: ValentineAskProps) {
                         boxShadow: "4px 4px 0px #000",
                     }}
                 >
-                    Yes! 💕
+                    yes ofc my love!
                 </motion.button>
 
                 {/* No Button (dodges!) */}

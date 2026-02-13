@@ -38,14 +38,14 @@ export default function BirthdayQuestion({ onCorrect }: BirthdayQuestionProps) {
                 className="text-xs sm:text-sm mb-2 leading-relaxed text-black"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
             >
-                whens my birthday? 🎂
+                whens my birthday?
             </h2>
 
             <p
                 className="text-[10px] text-gray-600 mb-6"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
             >
-                pick the date!
+                you better click the right date..
             </p>
 
             {/* Calendar Picker */}
@@ -75,7 +75,7 @@ export default function BirthdayQuestion({ onCorrect }: BirthdayQuestionProps) {
                         boxShadow: "4px 4px 0px #000",
                     }}
                 >
-                    Submit 📅
+                    too easy
                 </motion.button>
             </div>
 
@@ -89,8 +89,8 @@ export default function BirthdayQuestion({ onCorrect }: BirthdayQuestionProps) {
                     style={{ fontFamily: "'Press Start 2P', cursive" }}
                 >
                     {feedback === "wrong"
-                        ? "hmm, that's not right! 🤔"
-                        : "you remembered! 🥹💖"}
+                        ? "wtf you dont know my birthday???"
+                        : "okay okay.."}
                 </motion.p>
             )}
         </motion.div>

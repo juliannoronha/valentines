@@ -133,13 +133,13 @@ function App() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95, y: 2 }}
                 onClick={() => { initAudio(); goNext(); }}
-                className="mt-6 bg-purple-300 hover:bg-purple-400 border-3 border-black rounded-md px-8 py-4 text-sm text-black cursor-pointer transition-colors"
+                className="mt-6 bg-pink-300 hover:bg-pink-400 border-3 border-black rounded-md px-8 py-4 text-sm text-black cursor-pointer transition-colors"
                 style={{
                   fontFamily: "'Press Start 2P', cursive",
                   boxShadow: "4px 4px 0px #000",
                 }}
               >
-                I'm ready! 💪
+                okay, bet!
               </motion.button>
             </motion.div>
           )}
@@ -184,13 +184,13 @@ function App() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95, y: 2 }}
                 onClick={() => { initAudio(); goNext(); }}
-                className="mt-6 bg-yellow-300 hover:bg-yellow-400 border-3 border-black rounded-md px-8 py-4 text-sm text-black cursor-pointer transition-colors"
+                className="mt-6 bg-blue-300 hover:bg-blue-400 border-3 border-black rounded-md px-8 py-4 text-sm text-black cursor-pointer transition-colors"
                 style={{
                   fontFamily: "'Press Start 2P', cursive",
                   boxShadow: "4px 4px 0px #000",
                 }}
               >
-                I know this! 📅
+                really?
               </motion.button>
             </motion.div>
           )}
@@ -212,8 +212,9 @@ function App() {
               <CharacterBubble bubbleColor="bg-green-200" tailColor="#bbf7d0">
                 <TextType
                   text={[
-                    "alright, you won't get this one..",
-                    "this one is really hard.. click the button",
+                    "alright, that one was too easy",
+                    "this question is gonna be harder",
+                    "click the button",
                   ]}
                   typingSpeed={60}
                   deletingSpeed={30}
@@ -235,7 +236,7 @@ function App() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95, y: 2 }}
                 onClick={() => { initAudio(); goNext(); }}
-                className="mt-6 bg-pink-400 hover:bg-pink-500 border-3 border-black rounded-md px-8 py-4 text-sm text-black cursor-pointer transition-colors"
+                className="mt-6 bg-green-300 hover:bg-green-400 border-3 border-black rounded-md px-8 py-4 text-sm text-black cursor-pointer transition-colors"
                 style={{
                   fontFamily: "'Press Start 2P', cursive",
                   boxShadow: "4px 4px 0px #000",

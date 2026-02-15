@@ -1,24 +1,33 @@
 import { useState } from "react";
 import { motion, useMotionValue } from "motion/react";
 import type { PanInfo } from "motion/react";
-import { Image } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useHoverSound } from "../hooks/useHoverSound";
+
+import img1 from "../assets/pictures/carousel/img1.jpg";
+import img2 from "../assets/pictures/carousel/img2.jpg";
+import img3 from "../assets/pictures/carousel/img3.jpg";
+import img4 from "../assets/pictures/carousel/img4.jpg";
+import img5 from "../assets/pictures/carousel/img5.jpg";
+import img6 from "../assets/pictures/carousel/img6.jpeg";
+import img7 from "../assets/pictures/carousel/img7.jpeg";
+
+const CAROUSEL_IMAGES = [img1, img2, img3, img4, img5, img6, img7];
 
 interface PhotoCarouselProps {
   images?: string[];
 }
-
-const PLACEHOLDER_COUNT = 4;
 const GAP = 16;
 const DRAG_BUFFER = 30;
 const VELOCITY_THRESHOLD = 500;
 const SPRING_OPTIONS = { type: "spring" as const, stiffness: 300, damping: 30 };
 
-export default function PhotoCarousel({ images = [] }: PhotoCarouselProps) {
+export default function PhotoCarousel({ images = CAROUSEL_IMAGES }: PhotoCarouselProps) {
   const [position, setPosition] = useState(0);
   const x = useMotionValue(0);
+  const playHover = useHoverSound();
 
-  const hasImages = images.length > 0;
-  const itemCount = hasImages ? images.length : PLACEHOLDER_COUNT;
+  const itemCount = images.length;
 
   // Responsive item sizing — the card itself constrains the width
   const itemWidth = 260;
@@ -58,7 +67,7 @@ export default function PhotoCarousel({ images = [] }: PhotoCarouselProps) {
         className="text-xs sm:text-sm text-black mb-6"
         style={{ fontFamily: "'Press Start 2P', cursive" }}
       >
-        Our Memories
+        some of my favorite memories:3
       </h3>
 
       {/* Carousel track */}
@@ -75,49 +84,65 @@ export default function PhotoCarousel({ images = [] }: PhotoCarouselProps) {
           animate={{ x: -(position * trackItemOffset) }}
           transition={SPRING_OPTIONS}
         >
-          {Array.from({ length: itemCount }).map((_, index) => (
+          {images.map((src, index) => (
             <motion.div
               key={index}
               className="shrink-0 bg-white border-3 border-black rounded-md flex items-center justify-center overflow-hidden"
               style={{ width: itemWidth, height: itemHeight }}
             >
-              {hasImages ? (
-                <img
-                  src={images[index]}
-                  alt={`Memory ${index + 1}`}
-                  className="w-full h-full object-cover"
-                  style={{ imageRendering: "auto" }}
-                />
-              ) : (
-                <div className="flex flex-col items-center gap-3">
-                  <Image size={40} className="text-black/15" />
-                  <p
-                    className="text-[8px] text-black/30"
-                    style={{ fontFamily: "'Press Start 2P', cursive" }}
-                  >
-                    Photo {index + 1}
-                  </p>
-                </div>
-              )}
+              <img
+                src={src}
+                alt={`Memory ${index + 1}`}
+                className="w-full h-full object-cover object-center"
+              />
             </motion.div>
           ))}
         </motion.div>
       </div>
 
-      {/* Dot indicators */}
-      <div className="flex justify-center gap-2">
-        {Array.from({ length: itemCount }).map((_, index) => (
-          <motion.button
-            key={index}
-            onClick={() => setPosition(index)}
-            className="w-3 h-3 border-2 border-black rounded-full cursor-pointer transition-colors"
-            style={{
-              backgroundColor: position === index ? "#000" : "#fff",
-            }}
-            animate={{ scale: position === index ? 1.3 : 1 }}
-            transition={{ duration: 0.15 }}
-          />
-        ))}
+      {/* Navigation: arrows + dots */}
+      <div className="flex items-center justify-center gap-3">
+        {/* Left arrow */}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9, y: 2, boxShadow: "2px 2px 0px #000" }}
+          onMouseEnter={playHover}
+          onClick={() => setPosition((p) => Math.max(0, p - 1))}
+          className="bg-white hover:bg-blue-100 border-3 border-black rounded-md p-2 cursor-pointer transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          style={{ boxShadow: "4px 4px 0px #000" }}
+          disabled={position === 0}
+        >
+          <ChevronLeft size={16} className="text-black" />
+        </motion.button>
+
+        {/* Dots */}
+        <div className="flex gap-2">
+          {Array.from({ length: itemCount }).map((_, index) => (
+            <motion.button
+              key={index}
+              onClick={() => setPosition(index)}
+              className="w-3 h-3 border-2 border-black rounded-full cursor-pointer transition-colors"
+              style={{
+                backgroundColor: position === index ? "#000" : "#fff",
+              }}
+              animate={{ scale: position === index ? 1.3 : 1 }}
+              transition={{ duration: 0.15 }}
+            />
+          ))}
+        </div>
+
+        {/* Right arrow */}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9, y: 2, boxShadow: "2px 2px 0px #000" }}
+          onMouseEnter={playHover}
+          onClick={() => setPosition((p) => Math.min(itemCount - 1, p + 1))}
+          className="bg-white hover:bg-blue-100 border-3 border-black rounded-md p-2 cursor-pointer transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          style={{ boxShadow: "4px 4px 0px #000" }}
+          disabled={position === itemCount - 1}
+        >
+          <ChevronRight size={16} className="text-black" />
+        </motion.button>
       </div>
     </motion.div>
   );

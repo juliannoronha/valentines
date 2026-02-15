@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useHoverSound } from "../hooks/useHoverSound";
+import { useCorrectSound } from "../hooks/useCorrectSound";
 
 interface ColorQuestionProps {
     onCorrect: () => void;
@@ -17,12 +19,15 @@ const CORRECT_ANSWER = "Purple";
 export default function ColorQuestion({ onCorrect }: ColorQuestionProps) {
     const [selected, setSelected] = useState<string | null>(null);
     const [isWrong, setIsWrong] = useState(false);
+    const playHover = useHoverSound();
+    const playCorrect = useCorrectSound();
 
     const handleSelect = (colorName: string) => {
         setSelected(colorName);
 
         if (colorName === CORRECT_ANSWER) {
             setIsWrong(false);
+            playCorrect();
             setTimeout(() => onCorrect(), 800);
         } else {
             setIsWrong(true);
@@ -56,6 +61,7 @@ export default function ColorQuestion({ onCorrect }: ColorQuestionProps) {
                         key={c.name}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95, y: 2 }}
+                        onMouseEnter={playHover}
                         onClick={() => handleSelect(c.name)}
                         disabled={selected !== null}
                         className={`${c.color} ${c.hoverColor} border-3 border-black rounded-md px-4 py-4 text-xs text-black cursor-pointer transition-all disabled:cursor-not-allowed ${selected === c.name && c.name === CORRECT_ANSWER

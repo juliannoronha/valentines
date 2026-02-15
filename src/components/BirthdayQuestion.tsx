@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useHoverSound } from "../hooks/useHoverSound";
+import { useCorrectSound } from "../hooks/useCorrectSound";
 
 interface BirthdayQuestionProps {
     onCorrect: () => void;
@@ -10,12 +12,15 @@ const CORRECT_DATE = "2003-09-07";
 export default function BirthdayQuestion({ onCorrect }: BirthdayQuestionProps) {
     const [selectedDate, setSelectedDate] = useState("");
     const [feedback, setFeedback] = useState<"correct" | "wrong" | null>(null);
+    const playHover = useHoverSound();
+    const playCorrect = useCorrectSound();
 
     const handleSubmit = () => {
         if (!selectedDate) return;
 
         if (selectedDate === CORRECT_DATE) {
             setFeedback("correct");
+            playCorrect();
             setTimeout(() => onCorrect(), 1000);
         } else {
             setFeedback("wrong");
@@ -67,6 +72,7 @@ export default function BirthdayQuestion({ onCorrect }: BirthdayQuestionProps) {
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95, y: 2 }}
+                    onMouseEnter={playHover}
                     onClick={handleSubmit}
                     disabled={!selectedDate || feedback === "correct"}
                     className="bg-blue-300 hover:bg-blue-400 border-3 border-black rounded-md px-6 py-3 text-xs text-black cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"

@@ -1,5 +1,7 @@
 import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
+import { useHoverSound } from "../hooks/useHoverSound";
+import kanyeImg from "../assets/pictures/kanye.jpg";
 
 interface ValentineAskProps {
     onYes: () => void;
@@ -9,6 +11,7 @@ export default function ValentineAsk({ onYes }: ValentineAskProps) {
     const [noPosition, setNoPosition] = useState({ x: 0, y: 0 });
     const [yesScale, setYesScale] = useState(1);
     const [dodgeCount, setDodgeCount] = useState(0);
+    const playHover = useHoverSound();
 
     const dodgeNo = useCallback(() => {
         const maxX = window.innerWidth > 600 ? 200 : 100;
@@ -39,22 +42,17 @@ export default function ValentineAsk({ onYes }: ValentineAskProps) {
             className="bg-pink-200 border-4 border-black rounded-lg p-8 sm:p-10 w-full max-w-md mx-auto text-center"
             style={{ boxShadow: "6px 6px 0px #000" }}
         >
-            {/* Pulsing Heart */}
-            <motion.div
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
-                className="text-6xl sm:text-7xl mb-6"
+            {/* Kanye Valentine Image */}
+            <div
+                className="mb-6 mx-auto w-48 sm:w-56 border-4 border-black rounded-lg overflow-hidden"
+                style={{ boxShadow: "4px 4px 0px #000" }}
             >
-                💖
-            </motion.div>
-
-            {/* The Big Question */}
-            <h2
-                className="text-sm sm:text-lg text-black mb-8 leading-relaxed"
-                style={{ fontFamily: "'Press Start 2P', cursive" }}
-            >
-                Will you be my Valentine?
-            </h2>
+                <img
+                    src={kanyeImg}
+                    alt="Will you be my valentine?"
+                    className="w-full h-auto object-cover"
+                />
+            </div>
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative">
@@ -63,6 +61,7 @@ export default function ValentineAsk({ onYes }: ValentineAskProps) {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     animate={{ scale: yesScale }}
+                    onMouseEnter={playHover}
                     onClick={onYes}
                     className="bg-green-300 hover:bg-green-400 border-3 border-black rounded-md px-8 py-4 text-sm text-black cursor-pointer transition-colors z-10"
                     style={{
@@ -77,7 +76,7 @@ export default function ValentineAsk({ onYes }: ValentineAskProps) {
                 <motion.button
                     animate={{ x: noPosition.x, y: noPosition.y }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    onMouseEnter={dodgeNo}
+                    onMouseEnter={() => { playHover(); dodgeNo(); }}
                     onClick={dodgeNo}
                     className="bg-red-300 hover:bg-red-400 border-3 border-black rounded-md px-8 py-4 text-sm text-black cursor-pointer transition-colors z-10"
                     style={{

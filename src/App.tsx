@@ -10,9 +10,10 @@ import characterImg from "./assets/pictures/8bit me.png";
 import CarQuestion from "./components/CarQuestion";
 import MapQuestion from "./components/MapQuestion";
 import AnimatedContent from "./components/AnimatedContent";
+import Dashboard from "./components/Dashboard";
 import { useTalkingSound } from "./hooks/useTalkingSound";
 import { useHoverSound } from "./hooks/useHoverSound";
-import backgroundMusic from "./assets/sound/background.mp3";
+import backgroundMusic from "./assets/sound/background1/background.mp3";
 
 /**
  * Flow steps:
@@ -27,7 +28,7 @@ import backgroundMusic from "./assets/sound/background.mp3";
  * 8: Transition typing after map question
  * 9: Valentine ask (Yes / dodging No)
  * 10: Closing speech bubbles ("YAYYY! THANK YOU BABY", etc.)
- * 11: (Future step - placeholder)
+ * 11: Dashboard (music player + photo carousel)
  */
 type Step = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
 
@@ -569,17 +570,9 @@ function App() {
             </motion.div>
           )}
 
-          {/* Step 11: Future step (placeholder) */}
+          {/* Step 11: Dashboard */}
           {step === 11 && (
-            <motion.div
-              key="step11"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="flex flex-col items-center"
-            >
-              {/* TODO: Future content goes here */}
-            </motion.div>
+            <Dashboard key="dashboard" bgRef={bgRef} />
           )}
         </AnimatePresence>
       </div>

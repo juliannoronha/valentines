@@ -5,7 +5,7 @@ import TextType from "./components/TextType";
 import ColorQuestion from "./components/ColorQuestion";
 import BirthdayQuestion from "./components/BirthdayQuestion";
 import ValentineAsk from "./components/ValentineAsk";
-import Celebration from "./components/Celebration";
+// import Celebration from "./components/Celebration";
 import characterImg from "./assets/pictures/8bit me.png";
 import CarQuestion from "./components/CarQuestion";
 import MapQuestion from "./components/MapQuestion";
@@ -26,9 +26,10 @@ import backgroundMusic from "./assets/sound/background.mp3";
  * 7: Map question (image grid)
  * 8: Transition typing after map question
  * 9: Valentine ask (Yes / dodging No)
- * 10: Celebration
+ * 10: Closing speech bubbles ("YAYYY! THANK YOU BABY", etc.)
+ * 11: (Future step - placeholder)
  */
-type Step = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+type Step = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
 
 /** Reusable speech bubble layout: character on left, bubble on right */
 function CharacterBubble({
@@ -115,7 +116,7 @@ function App() {
 
   useEffect(() => setDialogIndex(0), [step]);
 
-  const goNext = () => setStep((prev) => Math.min(prev + 1, 10) as Step);
+  const goNext = () => setStep((prev) => Math.min(prev + 1, 11) as Step);
   const nextDialog = () => setDialogIndex((prev) => prev + 1);
 
   const step0Lines = [
@@ -137,11 +138,17 @@ function App() {
     "wait you actually got that??",
     "okay okay... last question",
   ];
+  const step10Lines = [
+    "YAYYY! THANK YOU BABY",
+    "thank you for giving me more time to work on your gift..",
+    "it really means a lot to me..",
+    "and i wanted this to be perfect",
+  ];
 
   // Delay button rendering until typing finishes so it doesn't take up layout space
   useEffect(() => {
     setShowButton(false);
-    const allLines: Record<number, string[]> = { 0: step0Lines, 2: step2Lines, 4: step4Lines, 6: step6Lines, 8: step8Lines };
+    const allLines: Record<number, string[]> = { 0: step0Lines, 2: step2Lines, 4: step4Lines, 6: step6Lines, 8: step8Lines, 10: step10Lines };
     const lines = allLines[step];
     if (!lines) return;
     const line = lines[Math.min(dialogIndex, lines.length - 1)] || "";
@@ -499,9 +506,80 @@ function App() {
             <ValentineAsk key="valentine" onYes={goNext} />
           )}
 
-          {/* Step 10: Celebration */}
+          {/* Step 10: Closing speech bubbles */}
           {step === 10 && (
-            <Celebration key="celebration" />
+            <motion.div
+              key="closing"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="flex flex-col items-center"
+            >
+              <CharacterBubble bubbleColor="bg-pink-200" tailColor="#fbcfe8">
+                <AnimatedContent key={`ac10-${dialogIndex}`} distance={15} duration={0.4}>
+                  <TextType
+                    key={`s10-${dialogIndex}`}
+                    text={step10Lines[Math.min(dialogIndex, step10Lines.length - 1)]}
+                    typingSpeed={60}
+                    deletingSpeed={30}
+                    pauseDuration={1500}
+                    loop={false}
+                    showCursor={true}
+                    cursorCharacter="▌"
+                    cursorClassName="text-pink-500"
+                    onCharTyped={playSegment}
+                    className="text-sm sm:text-base text-black leading-relaxed min-h-[50px]"
+                    style={{ fontFamily: "'Press Start 2P', cursive" }}
+                  />
+                </AnimatedContent>
+              </CharacterBubble>
+
+              {showButton && (dialogIndex < step10Lines.length - 1 ? (
+                <motion.button
+                  key={`skip10-${dialogIndex}`}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 0.5, y: 0 }}
+                  whileHover={{ opacity: 1, scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onMouseEnter={playHover}
+                  onClick={() => { initAudio(); nextDialog(); }}
+                  className="mt-4 text-[10px] text-black cursor-pointer"
+                  style={{ fontFamily: "'Press Start 2P', cursive" }}
+                >
+                  skip &gt;&gt;
+                </motion.button>
+              ) : (
+                <motion.button
+                  key="action10"
+                  initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95, y: 2 }}
+                  onMouseEnter={playHover}
+                  onClick={() => { initAudio(); goNext(); }}
+                  className="mt-6 bg-pink-300 hover:bg-pink-400 border-3 border-black rounded-md px-8 py-4 text-sm text-black cursor-pointer transition-colors"
+                  style={{
+                    fontFamily: "'Press Start 2P', cursive",
+                    boxShadow: "4px 4px 0px #000",
+                  }}
+                >
+                  ...
+                </motion.button>
+              ))}
+            </motion.div>
+          )}
+
+          {/* Step 11: Future step (placeholder) */}
+          {step === 11 && (
+            <motion.div
+              key="step11"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="flex flex-col items-center"
+            >
+              {/* TODO: Future content goes here */}
+            </motion.div>
           )}
         </AnimatePresence>
       </div>

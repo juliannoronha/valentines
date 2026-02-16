@@ -59,19 +59,22 @@ export default function PhotoCarousel({ images = CAROUSEL_IMAGES }: PhotoCarouse
       initial={{ opacity: 0, x: 30, rotate: 2 }}
       animate={{ opacity: 1, x: 0, rotate: 0 }}
       transition={{ type: "spring", stiffness: 200, damping: 25, delay: 0.35 }}
-      className="bg-blue-200 border-4 border-black rounded-lg p-6 sm:p-8"
+      className="bg-blue-200 border-4 border-black rounded-lg p-6 sm:p-8 flex flex-col items-center"
       style={{ boxShadow: "6px 6px 0px #000" }}
     >
       {/* Header */}
       <h3
-        className="text-xs sm:text-sm text-black mb-6"
+        className="text-xs sm:text-sm text-black mb-6 text-center w-full"
         style={{ fontFamily: "'Press Start 2P', cursive" }}
       >
         some of my favorite memories:3
       </h3>
 
       {/* Carousel track */}
-      <div className="relative overflow-hidden rounded-lg border-3 border-black bg-white/30 mb-5">
+      <div
+        className="relative overflow-hidden rounded-lg border-3 border-black bg-white/30 mb-5"
+        style={{ width: itemWidth, maxWidth: "100%" }}
+      >
         <motion.div
           className="flex cursor-grab active:cursor-grabbing"
           drag="x"
@@ -88,7 +91,7 @@ export default function PhotoCarousel({ images = CAROUSEL_IMAGES }: PhotoCarouse
             <motion.div
               key={index}
               className="shrink-0 bg-white border-3 border-black rounded-md flex items-center justify-center overflow-hidden"
-              style={{ width: itemWidth, height: itemHeight }}
+              style={{ width: itemWidth, height: itemHeight, boxShadow: "4px 4px 0px #000" }}
             >
               <img
                 src={src}

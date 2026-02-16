@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import MusicPlayer from "./MusicPlayer";
 import PhotoCarousel from "./PhotoCarousel";
+import DateCounter from "./DateCounter";
 
 interface DashboardProps {
   bgRef: React.RefObject<HTMLAudioElement | null>;
@@ -16,6 +17,7 @@ export default function Dashboard({ bgRef }: DashboardProps) {
       className="w-full max-w-5xl mx-auto"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <DateCounter />
         <MusicPlayer bgRef={bgRef} />
         <PhotoCarousel />
       </div>

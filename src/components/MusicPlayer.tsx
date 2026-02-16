@@ -15,6 +15,10 @@ import cover5 from "../assets/sound/background5/cover.jpg";
 import audio5 from "../assets/sound/background5/background.mp3";
 import cover6 from "../assets/sound/background6/cover.jpg";
 import audio6 from "../assets/sound/background6/background.mp3";
+import cover7 from "../assets/sound/background7/cover.jpg";
+import audio7 from "../assets/sound/background7/background.mp3";
+import cover8 from "../assets/sound/background8/cover.png";
+import audio8 from "../assets/sound/background8/background.mp3";
 import cover9 from "../assets/sound/background9/cover.png";
 import audio9 from "../assets/sound/background9/background.mp3";
 
@@ -35,7 +39,9 @@ const TRACKS: Track[] = [
   { src: audio4, cover: cover4, title: "Just The Way You Are - Bruno Mars" },
   { src: audio5, cover: cover5, title: "Pano - Zack Tabudlo" },
   { src: audio6, cover: cover6, title: "Uhaw - Dilaw" },
-  { src: audio9, cover: cover9, title: "Song 7" },
+  { src: audio7, cover: cover7, title: "Kiss it Better - Rihanna" },
+  { src: audio8, cover: cover8, title: "Super Bass - Nicki Minaj" },
+  { src: audio9, cover: cover9, title: "Song 9" },
 ];
 
 function formatTime(seconds: number): string {

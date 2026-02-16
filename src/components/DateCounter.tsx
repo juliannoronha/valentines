@@ -77,7 +77,7 @@ export default function DateCounter() {
         className="text-center text-[8px] text-black/50 mt-6"
         style={{ fontFamily: "'Press Start 2P', cursive" }}
       >
-        and counting...
+        and i still fall in love with you everyday:)
       </p>
     </motion.div>
   );

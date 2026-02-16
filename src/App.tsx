@@ -142,7 +142,7 @@ function App() {
   const step10Lines = [
     "YAYYY! THANK YOU BABY",
     "thank you for giving me more time to work on your gift..",
-    "it really means a lot to me..",
+    "it really means a lot to me and i love you so much",
     "and i wanted this to be perfect",
   ];
 
